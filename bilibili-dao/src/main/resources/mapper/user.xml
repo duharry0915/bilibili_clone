@@ -119,7 +119,6 @@
         where
         userId = #{userId}
     </update>
-
     <select id="getUserInfoByUserIds" resultType="com.example.bilibili.domain.UserInfo">
         select
         *
@@ -161,5 +160,63 @@
         limit #{start}, #{limit}
     </select>
 
+    <delete id="deleteRefreshToken">
+        delete from
+            t_refresh_token
+        where
+            refreshToken = #{refreshToken}
+          and userId = #{userId}
+    </delete>
+
+    <delete id="deleteRefreshTokenByUserId" parameterType="java.lang.Long">
+        delete from
+            t_refresh_token
+        where
+            userId = #{userId}
+    </delete>
+
+
+    <insert id="addRefreshToken">
+        insert into
+            t_refresh_token(
+            refreshToken,
+            userId,
+            createTime
+        )values(
+                   #{refreshToken},
+                   #{userId},
+                   #{createTime}
+               )
+    </insert>
+
+    <select id="getRefreshTokenDetail" parameterType="java.lang.String" resultType="com.example.bilibili.domain.RefreshTokenDetail">
+        select
+            *
+        from
+            t_refresh_token
+        where
+            refreshToken = #{refreshToken}
+    </select>
+
+    <select id="getRefreshTokenByUserId" parameterType="java.lang.Long" resultType="java.lang.String">
+        select
+            refreshToken
+        from
+            t_refresh_token
+        where
+            userId = #{userId}
+    </select>
+
+    <select id="batchGetUserInfoByUserIds" resultType="com.example.bilibili.domain.UserInfo">
+        select
+        *
+        from
+        t_user_info
+        where
+        userId in
+        <foreach collection="userIdList" item="userId" open="(" close=")" separator=",">
+            #{userId}
+        </foreach>
+    </select>
 
 </mapper>

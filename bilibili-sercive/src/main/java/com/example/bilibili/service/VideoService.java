@@ -197,7 +197,7 @@ public class VideoService {
     @Transactional
     public void addVideoCoins(VideoCoin videoCoin, Long userId) {
         Long videoId = videoCoin.getVideoId();
-        Integer amount = videoCoin.getAmount();
+        Integer amount   = videoCoin.getAmount();
         if (videoId == null) {
             throw new ConditionException("Parameter exception！");
         }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableMBeanExport;
 import org.springframework.jmx.support.RegistrationPolicy;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableMBeanExport(registration = RegistrationPolicy.IGNORE_EXISTING)
@@ -17,6 +18,7 @@ import org.springframework.jmx.support.RegistrationPolicy;
 @EnableAsync
 @EnableScheduling
 @ComponentScan(basePackages = {"com.example"})
+@EnableFeignClients(basePackages="com.example.bilibili.service.feign")
 public class BilibiliApp {
     public static void main(String[] args) {
         ApplicationContext app = SpringApplication.run(BilibiliApp.class, args);
